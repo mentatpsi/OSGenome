@@ -81,7 +81,7 @@ class SNPCrawl:
 
         formatCell = lambda rsid, variation : \
             "<b>" + str.join(" ", variation) + "</b>" \
-                if rsid in self.snpdict.keys() and \
+                if rsid.lower() in self.snpdict.keys() and \
                    self.snpdict[rsid.lower()] == variation[0] \
                 else str.join(" ", variation)
 
