@@ -34,8 +34,8 @@ class SNPCrawl:
         pp = pprint.PrettyPrinter(indent=1)
         pp.pprint(self.rsidDict)
 
-        self.createList()
         self.export()
+        self.createList()
 
     def grabTable(self, rsid):
         try:
@@ -75,11 +75,15 @@ class SNPCrawl:
         make = lambda rsname, description, variations: \
             {"Name": rsname,
              "Description": description,
+             "Genotype": self.snpdict[rsname.lower()] \
+             if rsname.lower() in self.snpdict.keys() else "(-;-)", \
              "Variations": str.join("<br>", variations)}
 
         formatCell = lambda rsid, variation : \
-            "<b>" + str.join(" ", variation) + "</b>" if self.snpdict[rsid.lower()] == variation[0] \
-            else str.join(" ", variation)
+            "<b>" + str.join(" ", variation) + "</b>" \
+                if rsid in self.snpdict.keys() and \
+                   self.snpdict[rsid.lower()] == variation[0] \
+                else str.join(" ", variation)
 
         for rsid in self.rsidDict.keys():
             curdict = self.rsidDict[rsid]
@@ -119,7 +123,7 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 
 if args["filepath"]:
     personal = PersonalData(args["filepath"])
-    rsid += personal.snps[:150]
+    rsid += personal.snps[:550]
 if args['load']:
     clCrawl = SNPCrawl(rsids=rsid, filepath=args["load"])
 
