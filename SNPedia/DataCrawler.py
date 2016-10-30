@@ -9,6 +9,9 @@ import argparse
 import os
 
 
+from GenomeImporter import PersonalData
+
+
 class SNPCrawl:
     def __init__(self, rsids=[], filepath=None):
         if filepath and os.path.isfile(filepath):
@@ -91,13 +94,20 @@ class SNPCrawl:
         with open(filepath,"w") as jsonfile:
             json.dump(self.rsidDict, jsonfile)
 
+
 parser = argparse.ArgumentParser()
+
+
+parser.add_argument('-f', '--filepath', help='Filepath for 23andMe data to be used for import', required=False)
 parser.add_argument('-l', '--load', help='Filepath for json dump to be used for import', required=False)
 
 args = vars(parser.parse_args())
 
-rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", "rs4988235", "rs6806903"]
+rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", "rs4988235", "rs6806903" , "rs4244285"]
 
+if args["filepath"]:
+    personal = PersonalData(args["filepath"])
+    rsid += personal.snps[:250]
 if args['load']:
     clCrawl = SNPCrawl(rsids=rsid, filepath=args["load"])
 
