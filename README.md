@@ -9,7 +9,7 @@ Step 1:
 python3 SNPedia/Datacrawler.py
 
 Step 2:
-python3 SnpApi.py
+python3 SNPedia/SnpApi.py
 
 Step 3:
 Access http://127.0.0.1:5000 to look at your Genome
