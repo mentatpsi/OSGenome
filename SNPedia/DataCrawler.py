@@ -13,13 +13,18 @@ from GenomeImporter import PersonalData
 
 
 class SNPCrawl:
-    def __init__(self, rsids=[], filepath=None):
+    def __init__(self, rsids=[], filepath=None, snppath=None):
         if filepath and os.path.isfile(filepath):
             self.importDict(filepath)
             self.rsidList = []
         else:
             self.rsidDict = {}
             self.rsidList = []
+
+        if snppath and os.path.isfile(snppath):
+            self.importSNPs(snppath)
+        else:
+            self.snpdict = {}
 
         for rsid in rsids:
             print(rsid)
@@ -72,17 +77,24 @@ class SNPCrawl:
              "Description": description,
              "Variations": str.join("<br>", variations)}
 
-        formatCell = lambda variation : \
-            str.join(" ", variation)
+        formatCell = lambda rsid, variation : \
+            "<b>" + str.join(" ", variation) + "</b>" if self.snpdict[rsid.lower()] == variation[0] \
+            else str.join(" ", variation)
 
         for rsid in self.rsidDict.keys():
             curdict = self.rsidDict[rsid]
-            variations = [str.join(" ", variation) for variation in curdict["Variations"]]
+            variations = [formatCell(rsid, variation) for variation in curdict["Variations"]]
             self.rsidList.append(make(rsid, curdict["Description"], variations))
+
+        #print(self.rsidList[:5])
 
     def importDict(self, filepath):
         with open(filepath, 'r') as jsonfile:
             self.rsidDict = json.load(jsonfile)
+
+    def importSNPs(self, snppath):
+        with open(snppath, 'r') as jsonfile:
+            self.snpdict = json.load(jsonfile)
 
     def export(self):
         data = pd.DataFrame(self.rsidDict)
@@ -107,7 +119,7 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 
 if args["filepath"]:
     personal = PersonalData(args["filepath"])
-    rsid += personal.snps[:250]
+    rsid += personal.snps[:150]
 if args['load']:
     clCrawl = SNPCrawl(rsids=rsid, filepath=args["load"])
 

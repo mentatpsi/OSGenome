@@ -16,6 +16,10 @@ def get_types():
 
 if __name__ == "__main__":
     filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
+    snppath = os.path.join(os.path.curdir, "data", 'snpDict.json')
     if os.path.isfile(filepath):
-        dfCrawl = SNPCrawl(filepath=filepath)
+        if os.path.isfile(snppath):
+            dfCrawl = SNPCrawl(filepath=filepath, snppath=snppath)
+        else:
+            dfCrawl = SNPCrawl(filepath=filepath)
     app.run(debug=True)
