@@ -6,7 +6,7 @@ OS Genome is an attempt to allow for users to gather the information they need t
 In order to set up the requirements. Make sure you have python pip. The necessary dependencies can therein be added by pip install -r requirements.txt. This will install everything you need to use the script. It is written using Python 3. So make sure to use that when running the script.
 
 Step 1:
-python3 SNPedia/Datacrawler.py
+python3 SNPedia/Datacrawler.py -f [Absolute path of your raw 23 and Me data]
 
 Step 2:
 python3 SNPedia/SnpApi.py
