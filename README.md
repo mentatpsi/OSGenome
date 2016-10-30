@@ -12,7 +12,7 @@ Step 2:
 python3 SNPedia/SnpApi.py
 
 Step 3:
-Access http://localhost:5000 (hosted on your local machine) to look at your Genome
+Access http://127.0.0.1:5000 (hosted on your local machine) to look at your Genome
 
 Example:
 ![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/OSGenome.png)
