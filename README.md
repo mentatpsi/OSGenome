@@ -6,10 +6,13 @@ OS Genome is an attempt to allow for users to gather the information they need t
 In order to set up the requirements. Make sure you have python pip. The necessary dependencies can therein be added by pip install -r requirements.txt. This will install everything you need to use the script. It is written using Python 3. So make sure to use that when running the script.
 
 Step 1:
-python3 SNPedia/Datacrawler.py
+python3 SNPedia/Datacrawler.py -f [Absolute path of your downloaded raw 23andMe data]
 
 Step 2:
 python3 SNPedia/SnpApi.py
 
 Step 3:
-Access http://127.0.0.1:5000 to look at your Genome
+Access http://127.0.0.1:5000 (hosted on your local machine) to look at your Genome
+
+Example:
+![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/OSGenome.png)
