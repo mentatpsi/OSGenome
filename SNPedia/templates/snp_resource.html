@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <title></title>
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.material.mobile.min.css" />
+
+    <script src="//kendo.cdn.telerik.com/2016.3.914/js/jquery.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
+</head>
+<body>
+
+        <div id="example">
+            <div id="grid"></div>
+            <script>
+                $(document).ready(function() {
+                    $("#grid").kendoGrid({
+                        dataSource: {
+                            dataType: "json",
+                            transport: {
+                                read: "/api/rsids"
+                            },
+                            schema: {
+                                data: function(response) {
+                                    return response.results;
+                                }
+                            }
+                        },
+                        columns: [
+                       { field: "Name", width: '190px', title: "Name" },
+                       { field: "Description", width: '290px', title: "Short Description" },
+                       { field: "Variations", width: '490px', title: "Genotype variations", encoded: false },
+                         ],
+                        height: 550,
+                        filterable: true,
+                        sortable: true,
+                        pageable: true,
+                        reorderable: true
+                    });
+                });
+            </script>
+</div>
+
+
+</body>
+</html>
+
