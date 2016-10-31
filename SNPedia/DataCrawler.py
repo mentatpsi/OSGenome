@@ -26,13 +26,22 @@ class SNPCrawl:
         else:
             self.snpdict = {}
 
-        for rsid in rsids:
-            print(rsid)
+        hostname = "snpedia.com"  # example
+        response = os.system("ping -c 1 " + hostname)
 
-            self.grabTable(rsid)
-            print("")
-        pp = pprint.PrettyPrinter(indent=1)
-        pp.pprint(self.rsidDict)
+        # and then check the response...
+        if response == 0:
+            print(hostname + 'is up!')
+            for rsid in rsids:
+                print(rsid)
+
+                self.grabTable(rsid)
+                print("")
+            pp = pprint.PrettyPrinter(indent=1)
+            pp.pprint(self.rsidDict)
+        else:
+            print(hostname + 'is down!')
+            print("Will not be able to perform crawl")
 
         self.export()
         self.createList()
