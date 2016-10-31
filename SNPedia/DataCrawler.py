@@ -39,7 +39,7 @@ class SNPCrawl:
 
     def grabTable(self, rsid):
         try:
-            url = "https://www.snpedia.com/index.php/" + rsid
+            url = "https://bots.snpedia.com/index.php/" + rsid
             if rsid not in self.rsidDict.keys():
                 self.rsidDict[rsid] = {
                     "Description": "",
@@ -123,7 +123,7 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 
 if args["filepath"]:
     personal = PersonalData(args["filepath"])
-    rsid += personal.snps[:550]
+    rsid += personal.snps[:3550]
 if args['load']:
     clCrawl = SNPCrawl(rsids=rsid, filepath=args["load"])
 
