@@ -10,6 +10,8 @@ import argparse
 import os
 import random
 
+
+from SNPGen import GrabSNPs
 from GenomeImporter import PersonalData
 
 
@@ -27,22 +29,30 @@ class SNPCrawl:
         else:
             self.snpdict = {}
 
+        rsids = [item.lower() for item in rsids]
+        self.initcrawl(rsids)
+        self.export()
+        self.createList()
+
+    def initcrawl(self, rsids):
+        count = 0
         for rsid in rsids:
             print(rsid)
             self.grabTable(rsid)
             print("")
+            count += 1
+            if count % 100 == 0:
+                print("%i out of %s completed" % (count, len(rsids)))
+                self.export()
+                print("exporting current results")
         pp = pprint.PrettyPrinter(indent=1)
         pp.pprint(self.rsidDict)
-
-
-        self.export()
-        self.createList()
 
     def grabTable(self, rsid):
         try:
             url = "https://bots.snpedia.com/index.php/" + rsid
             if rsid not in self.rsidDict.keys():
-                self.rsidDict[rsid] = {
+                self.rsidDict[rsid.lower()] = {
                     "Description": "",
                     "Variations": []
                 }
@@ -120,14 +130,28 @@ parser.add_argument('-l', '--load', help='Filepath for json dump to be used for 
 
 args = vars(parser.parse_args())
 
+
+
+
+
+
 rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", "rs4988235", "rs6806903" , "rs4244285"]
+rsid += ["rs1801133", ]
+
+
+sp = GrabSNPs(crawllimit=30)
+rsid += sp.snps
+
+print(len(sp.snps))
+
 
 if args["filepath"]:
+
     personal = PersonalData(args["filepath"])
     temp = personal.snps
     random.shuffle(temp)
     print(temp[:10])
-    rsid += temp[:500]
+    rsid += temp[:50]
 
 if args['load']:
     clCrawl = SNPCrawl(rsids=rsid, filepath=args["load"])
