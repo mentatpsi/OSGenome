@@ -139,7 +139,7 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 rsid += ["rs1801133", ]
 
 
-sp = GrabSNPs(crawllimit=30)
+sp = GrabSNPs(crawllimit=60)
 rsid += sp.snps
 
 print(len(sp.snps))

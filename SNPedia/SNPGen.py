@@ -35,5 +35,5 @@ class GrabSNPs:
 
 
 if __name__ == "__main__":
-    sn = CrawlSNPS()
+    sn = GrabSNPs()
     print(sn.snps)

@@ -14,8 +14,8 @@ class PersonalData:
             relevantdata = [line for line in file.readlines() if line[0] != "#"]
             file.close()
         self.personaldata = [line.split("\t") for line in relevantdata]
-        self.snps = [item[0] for item in self.personaldata]
-        self.snpdict = {item[0]: "(" + item[3].rstrip()[0] + ";" + item[3].rstrip()[-1] + ")" \
+        self.snps = [item[0].lower() for item in self.personaldata]
+        self.snpdict = {item[0].lower(): "(" + item[3].rstrip()[0] + ";" + item[3].rstrip()[-1] + ")" \
                         for item in self.personaldata}
 
     def export(self):
