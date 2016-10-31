@@ -1,5 +1,6 @@
 
 from bs4 import BeautifulSoup
+from random import shuffle
 
 import urllib.request
 import pprint
@@ -7,7 +8,7 @@ import json
 import pandas as pd
 import argparse
 import os
-
+import random
 
 from GenomeImporter import PersonalData
 
@@ -26,22 +27,13 @@ class SNPCrawl:
         else:
             self.snpdict = {}
 
-        hostname = "snpedia.com"  # example
-        response = os.system("ping -c 1 " + hostname)
+        for rsid in rsids:
+            print(rsid)
+            self.grabTable(rsid)
+            print("")
+        pp = pprint.PrettyPrinter(indent=1)
+        pp.pprint(self.rsidDict)
 
-        # and then check the response...
-        if response == 0:
-            print(hostname + 'is up!')
-            for rsid in rsids:
-                print(rsid)
-
-                self.grabTable(rsid)
-                print("")
-            pp = pprint.PrettyPrinter(indent=1)
-            pp.pprint(self.rsidDict)
-        else:
-            print(hostname + 'is down!')
-            print("Will not be able to perform crawl")
 
         self.export()
         self.createList()
@@ -132,7 +124,11 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 
 if args["filepath"]:
     personal = PersonalData(args["filepath"])
-    rsid += personal.snps[:3550]
+    temp = personal.snps
+    random.shuffle(temp)
+    print(temp[:10])
+    rsid += temp[:500]
+
 if args['load']:
     clCrawl = SNPCrawl(rsids=rsid, filepath=args["load"])
 
