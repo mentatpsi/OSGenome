@@ -34,6 +34,3 @@ class GrabSNPs:
             self.snps.extend(member)
 
 
-if __name__ == "__main__":
-    sn = GrabSNPs()
-    print(sn.snps)

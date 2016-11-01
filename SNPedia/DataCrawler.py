@@ -30,7 +30,8 @@ class SNPCrawl:
             self.snpdict = {}
 
         rsids = [item.lower() for item in rsids]
-        self.initcrawl(rsids)
+        if rsids:
+            self.initcrawl(rsids)
         self.export()
         self.createList()
 
@@ -139,10 +140,11 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 rsid += ["rs1801133", ]
 
 
-sp = GrabSNPs(crawllimit=60)
-rsid += sp.snps
+if args["filepath"] or args['load']:
+    sp = GrabSNPs(crawllimit=60)
+    rsid += sp.snps
 
-print(len(sp.snps))
+    print(len(sp.snps))
 
 
 if args["filepath"]:

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.material.min.css" />
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.material.mobile.min.css" />
 
+    <script src="//kendo.cdn.telerik.com/2016.3.1028/js/jszip.min.js"></script>
     <script src="//kendo.cdn.telerik.com/2016.3.914/js/jquery.min.js"></script>
     <script src="//kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
 </head>
@@ -17,10 +18,20 @@
             <script>
                 $(document).ready(function() {
                     $("#grid").kendoGrid({
+                        toolbar: ["excel"],
+                        excel: {
+                            fileName: "Kendo UI Grid Export.xlsx",
+                            proxyURL: "/excel",
+                            filterable: true
+                        },
                         dataSource: {
                             dataType: "json",
                             transport: {
                                 read: "/api/rsids"
+                            },
+                            sort: {
+                                field: "Variations",
+                                dir: "desc"
                             },
                             schema: {
                                 data: function(response) {
@@ -38,6 +49,8 @@
                         filterable: true,
                         sortable: true,
                         pageable: true,
+                        selectable: "multiple row",
+                        allowCopy: true,
                         reorderable: true
                     });
                 });
