@@ -37,7 +37,8 @@
                                 data: function(response) {
                                     return response.results;
                                 }
-                            }
+                            },
+                            pageSize: 20
                         },
                         columns: [
                        { field: "Name", width: '190px', title: "Name" },
@@ -48,7 +49,11 @@
                         height: 950,
                         filterable: true,
                         sortable: true,
-                        pageable: true,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: true,
+                            buttonCount: 5
+                        },
                         selectable: "multiple row",
                         allowCopy: true,
                         reorderable: true
