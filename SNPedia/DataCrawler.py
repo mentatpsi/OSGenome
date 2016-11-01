@@ -151,9 +151,9 @@ if args["filepath"]:
     print(temp[:10])
     rsid += temp[:50]
 
-filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
 
 if __name__ == "__main__":
+    filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
     if os.path.isfile(filepath):
         dfCrawl = SNPCrawl(rsids=rsid, filepath=filepath)
 
