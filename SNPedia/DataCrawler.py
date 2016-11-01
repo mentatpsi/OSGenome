@@ -127,7 +127,6 @@ parser = argparse.ArgumentParser()
 
 
 parser.add_argument('-f', '--filepath', help='Filepath for 23andMe data to be used for import', required=False)
-parser.add_argument('-l', '--load', help='Filepath for json dump to be used for import', required=False)
 
 args = vars(parser.parse_args())
 
@@ -140,14 +139,11 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 rsid += ["rs1801133", ]
 
 
-if args["filepath"] or args['load']:
+if args["filepath"]:
     sp = GrabSNPs(crawllimit=60)
     rsid += sp.snps
 
     print(len(sp.snps))
-
-
-if args["filepath"]:
 
     personal = PersonalData(args["filepath"])
     temp = personal.snps
@@ -155,9 +151,11 @@ if args["filepath"]:
     print(temp[:10])
     rsid += temp[:50]
 
-if args['load']:
-    clCrawl = SNPCrawl(rsids=rsid, filepath=args["load"])
+filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
 
-else:
-    if __name__ == "__main__":
-        clCrawl = SNPCrawl(rsids=rsid)
+if __name__ == "__main__":
+    if os.path.isfile(filepath):
+        dfCrawl = SNPCrawl(rsids=rsid, filepath=filepath)
+
+    else:
+        dfCrawl = SNPCrawl(rsids=rsid)
