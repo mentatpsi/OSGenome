@@ -38,7 +38,7 @@
                                     return response.results;
                                 }
                             },
-                            pageSize: 20
+                            pageSize: 50
                         },
                         columns: [
                        { field: "Name", width: '190px', title: "Name" },
@@ -51,7 +51,7 @@
                         sortable: true,
                         pageable: {
                             refresh: true,
-                            pageSizes: true,
+                            pageSizes: [25, 50, 100, 250],
                             buttonCount: 5
                         },
                         selectable: "multiple row",
