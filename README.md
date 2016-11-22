@@ -43,8 +43,9 @@ python3 SNPedia/SnpApi.py
 This sets us the Flask server
 
 
-Step 3:
+##Access the Local Server
 Access http://127.0.0.1:5000 (the ip address also known as localhost, it's all hosted on your local machine) to look at your Genome
+
 
 ##Example
 ![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/images/OSGenome_mp2.png)
