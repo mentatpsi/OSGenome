@@ -6,7 +6,7 @@ OS Genome is an attempt to allow for users to gather the information they need t
 
 
 ##What are SNPs?
-From Bioinformatics - A Practical Approach by Shui Qing Ye (pg 108):
+From Bioinformatics - A Practical Approach by Shui Qing Ye, M.D., Ph.D. (pg 108):
 
 >SNP, pronounced “snip,” stands for single-nucleotide polymorphism, which represents a substitution of one base for another, e.g., C to T or A to G. SNP is the most common variation in the human genome and occurs approximately once every 100 to 300 bases. SNP is terminologically distinguished from mutation based on an arbitrary population frequency cutoff value: 1%, with SNP [greater than] 1% and mutation [less than] 1%. A key aspect of research in genetics is associating sequence variations with heritable phenotypes. Because SNPs are expected to facilitate large-scale association genetics studies, there has been an increasing interest in SNP discovery and detection.
 
