@@ -2,7 +2,8 @@
 An Open Source Library and ToolKit of Genetic Data (SNP) using 23AndMe and Data Crawling Technologies
 
 ##Description
-OS Genome is an attempt to allow for users to gather the information they need to make sense of their own genome without needing to rely on outside services with unknown privacy policies. OS Genome's goal is to crawl various sources and give meaning to an individual's genome. It creates a front end Grid of the user's specific genome. This allows for everything from filtering to excel exporting. All of which using Flask. 
+OS Genome is an attempt to allow for users to gather the information they need to make sense of their own genome without needing to rely on outside services with unknown privacy policies. OS Genome's goal is to crawl various sources and give meaning to an individual's genome. It creates a front end Grid of the user's specific genome. This allows for everything from filtering to excel exporting. All of which using Flask, Kendo, and Python programming.
+
 
 ##What are SNPs?
 From Bioinformatics - A Practical Approach by Shui Qing Ye (pg 108):
@@ -11,12 +12,14 @@ From Bioinformatics - A Practical Approach by Shui Qing Ye (pg 108):
 
 23andMe gathers hundreds of thousands of SNPs that give you everything from your genetic ancestry (haplogroups) to whether you are more likely to think Cilantro tastes like soap, or how quickly you likely digest coffee. Unfortunately, and fortunately, there is a lot of information out there on each specific SNP and what associations they might have. Much like Phrenology of the late 18th and early 19th century, where personality was attempted to be associated to facial features, there can be a lot of attempts to draw conclusions in noise. Enter OS Genome, where you can discover links and research at your own pace with the information you gather. It will highlight what specific Genotype is yours, and what that means in the context of discovery. From there you can google the relevant SNP id at your own intrigue.
 
+
 ##Where is my information stored?
 All of your genetic data (your raw data) is stored and used locally on your computer. At no point does this software send your data anywhere. It is used in personalizing OS Genome to you.
 
 
 ##How do I grab my raw SNP Data?
 Since it's quite possible 23AndMe will change the way you download the raw data... this might change from time to time. Just look up how to download 23AndMe raw data in Google, and you might just find a link to 23AndMe to download the raw data. It'll be in a comma separated format. 
+
 
 ##Installation:
 
