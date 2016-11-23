@@ -18,6 +18,10 @@ class PersonalData:
         self.snpdict = {item[0].lower(): "(" + item[3].rstrip()[0] + ";" + item[3].rstrip()[-1] + ")" \
                         for item in self.personaldata}
 
+    def hasGenotype(self, rsid):
+        genotype = self.snpdict[rsid]
+        return not genotype == "(-;-)"
+
     def export(self):
         filepath = os.path.join(os.path.curdir, "data", 'snpDict.json')
         with open(filepath, "w") as jsonfile:

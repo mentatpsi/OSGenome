@@ -5,7 +5,6 @@ from random import shuffle
 import urllib.request
 import pprint
 import json
-import pandas as pd
 import argparse
 import os
 import random
@@ -113,11 +112,11 @@ class SNPCrawl:
             self.snpdict = json.load(jsonfile)
 
     def export(self):
-        data = pd.DataFrame(self.rsidDict)
-        data = data.fillna("-")
-        data = data.transpose()
-        datapath = os.path.join(os.path.curdir, "data", 'rsidDict.csv')
-        data.to_csv(datapath)
+        #data = pd.DataFrame(self.rsidDict)
+        #data = data.fillna("-")
+        #data = data.transpose()
+        #datapath = os.path.join(os.path.curdir, "data", 'rsidDict.csv')
+        #data.to_csv(datapath)
         filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
         with open(filepath,"w") as jsonfile:
             json.dump(self.rsidDict, jsonfile)
@@ -131,21 +130,17 @@ parser.add_argument('-f', '--filepath', help='Filepath for 23andMe data to be us
 args = vars(parser.parse_args())
 
 
-
-
-
-
-rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", "rs4988235", "rs6806903" , "rs4244285"]
-rsid += ["rs1801133", ]
+#Some interesting SNPs to get started with
+rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", "rs4988235", "rs6806903", "rs4244285"]
+rsid += ["rs1801133"]
 
 
 if args["filepath"]:
-    sp = GrabSNPs(crawllimit=60)
-    rsid += sp.snps
-
-    print(len(sp.snps))
-
     personal = PersonalData(args["filepath"])
+    snpsofinterest = [snp for snp in personal.snps if personal.hasGenotype(snp)]
+    sp = GrabSNPs(crawllimit=60, snpsofinterest=snpsofinterest, target=100)
+    rsid += sp.snps
+    print(len(sp.snps))
     temp = personal.snps
     random.shuffle(temp)
     print(temp[:10])
