@@ -21,6 +21,14 @@ All of your genetic data (your raw data) is stored and used locally on your comp
 Since it's quite possible 23AndMe will change the way you download the raw data... this might change from time to time. Just look up how to download 23AndMe raw data in Google, and you might just find a link to 23AndMe to download the raw data. It'll be in a comma separated format. 
 
 
+##Does OS Genome work through other SNP/Ancestry sites?
+Currently, there is a script I can upload to convert the formats. MyFamilyTree.com, for instance, uses a comma to separate their data, while 23AndMe uses tabs, that's pretty much the main difference. If there's enough demand, I can easily include it to the workflow... so feel free to request the addition. As OS Genome improves, a lot of functionality is likely to arise.
+
+
+##How much data will OS Genome grab?
+Last checked, 23AndMe had over 610,000 SNPs that comes from their raw SNP file, while MyFamilyTree.com had over 700,000 SNPs. OS Genome crawls a couple hundred each time. Each time you run step 1, it'll add additional several hundred SNPs to your result for you to examine. There's no real end, except for when all of the data has been covered, which is over 600,000 at a minimum. This was done to reduce the amount of data that needs to be crawled before you have something to examine. Feel free to run step 1 as often as you'd like to gain additional data, and no worries... it keeps track of your progress.
+
+
 ##Installation:
 
 In order to set up the requirements. Make sure you have [python pip](https://packaging.python.org/installing/). The necessary dependencies can therein be added by pip install -r requirements.txt. This will install everything you need to use the script. It is written using Python 3. So make sure to use that when running the script.
