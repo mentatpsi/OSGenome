@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, jsonify
+from flask import Flask, render_template, request, send_file, send_from_directory, jsonify
 import base64
 from DataCrawler import SNPCrawl
 import os
@@ -27,6 +27,15 @@ def create_file():
     return send_file(bytesIO,
                      attachment_filename=filename,
                      as_attachment=True)
+
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
+
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('css', path)
 
 
 @app.route("/api/rsids", methods=['GET'])
