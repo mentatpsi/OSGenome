@@ -65,7 +65,7 @@ class SNPCrawl:
                 if description:
                     d1 = self.tableToList(description)
                     self.rsidDict[rsid]["Description"] = d1[0][0]
-                    print(d1[0][0])
+                    print(d1[0][0].encode("utf-8"))
                 if table:
                     d2 = self.tableToList(table)
                     self.rsidDict[rsid]["Variations"] = d2[1:]

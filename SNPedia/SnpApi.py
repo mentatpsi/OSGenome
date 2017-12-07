@@ -28,6 +28,12 @@ def create_file():
                      attachment_filename=filename,
                      as_attachment=True)
 
+
+@app.route('/images/<path:path>')
+def send_image(path):
+    return send_from_directory('images', path)
+
+
 @app.route('/js/<path:path>')
 def send_js(path):
     return send_from_directory('js', path)
