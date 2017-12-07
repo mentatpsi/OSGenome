@@ -46,7 +46,7 @@ class SNPCrawl:
                 self.export()
                 print("exporting current results")
         pp = pprint.PrettyPrinter(indent=1)
-        pp.pprint(self.rsidDict)
+        #pp.pprint(self.rsidDict)
 
     def grabTable(self, rsid):
         try:
