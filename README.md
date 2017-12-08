@@ -1,4 +1,4 @@
-# OSGenome
+﻿# OSGenome
 An Open Source Library and ToolKit of Genetic Data (SNP) using 23AndMe and Data Crawling Technologies
 
 ## Description
@@ -59,4 +59,4 @@ Access http://127.0.0.1:5000 (the ip address also known as localhost, it's all h
 
 
 ## Example
-![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/images/OSGenome_mp2.png)
+![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/images/OSGenome4.PNG)
