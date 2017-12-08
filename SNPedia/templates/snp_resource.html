@@ -10,9 +10,30 @@
     <script src="js/jszip.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/kendo.all.min.js"></script>
+<style>
+.main {
+    float: left;
+    height: 950px;
+    background-image: url('../images/dna-body.png');
+    width: 350px;
+    background-size:100%;
+
+  }
+.grid {
+    width: 950px;
+    height: 1.3em;
+    position: absolute;
+    display: inline;
+}
+</style>
 </head>
 <body>
 
+<div class="main">
+    <div id="content">
+    </div>
+ </div>
+	<div class="grid">
         <div id="example">
             <div id="grid"></div>
             <script>
@@ -60,6 +81,7 @@
                     });
                 });
             </script>
+</div>
 </div>
 
 
