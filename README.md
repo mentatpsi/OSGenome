@@ -1,4 +1,4 @@
-﻿# OSGenome
+# OSGenome
 An Open Source Library and ToolKit of Genetic Data (SNP) using 23AndMe and Data Crawling Technologies
 
 ## Description
@@ -31,7 +31,7 @@ Last checked, 23AndMe had over 610,000 SNPs that comes from their raw SNP file, 
 
 ## Installation:
 
-In order to set up the requirements. Make sure you have [python pip](https://packaging.python.org/installing/). The necessary dependencies can therein be added by pip install -r requirements.txt. This will install everything you need to use the script. It is written using Python 3. So make sure to use that when running the script and make sure environmental variables of PATH were set during installation.
+In order to set up the requirements. Make sure you have [python pip](https://packaging.python.org/installing/). The necessary dependencies can therein be added by pip install -r requirements.txt. This will install everything you need to use the script. It is written using Python 3. So make sure to use that when running the script and make sure environmental variables of PATH were set during installation of Python.
 
 Step 0:
 ```
