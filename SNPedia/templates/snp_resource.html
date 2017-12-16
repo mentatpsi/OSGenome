@@ -39,12 +39,19 @@
             <script>
                 $(document).ready(function() {
                     $("#grid").kendoGrid({
-                        toolbar: ["excel"],
+
+                        toolbar: ["excel",
+                        {
+                            name:'lookupsnp',
+                            template:'#= snplookup()#'
+                        }
+                        ],
                         excel: {
                             fileName: "SNP Report.xlsx",
                             proxyURL: "/excel",
                             filterable: true
                         },
+
                         dataSource: {
                             dataType: "json",
                             transport: {
@@ -75,11 +82,23 @@
                             pageSizes: [25, 50, 100, 250],
                             buttonCount: 5
                         },
-                        selectable: "multiple row",
+                        selectable: "row",
                         allowCopy: true,
                         reorderable: true
                     });
                 });
+                function snplookup(e){
+                            return '<a class="k-button" href="#" id="lookupsnp" onclick="snpedia()">Lookup on SNPedia</a>';
+                        };
+                        function snpedia(){
+                            var entityGrid = $("#grid").data("kendoGrid");
+                            var rows = entityGrid.select();
+                            var rsid = rows[0].cells[0].innerText
+
+                            var html = "https://bots.snpedia.com/index.php/"
+                            var link = html.concat(rsid)
+                            window.open(link);
+                        };
             </script>
 </div>
 </div>
