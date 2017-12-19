@@ -29,6 +29,9 @@ Currently, there is a script I can upload to convert the formats. MyFamilyTree.c
 Last checked, 23AndMe had over 610,000 SNPs that comes from their raw SNP file, while MyFamilyTree.com had over 700,000 SNPs. OS Genome crawls a couple hundred each time. Each time you run step 1, it'll add additional several hundred SNPs to your result for you to examine. There's no real end, except for when all of the data has been covered, which is over 600,000 at a minimum. This was done to reduce the amount of data that needs to be crawled before you have something to examine. Feel free to run step 1 as often as you'd like to gain additional data, and no worries... it keeps track of your progress.
 
 
+## What are some additional features?
+OS Genome also has Excel Exporting, SNPedia Lookup, and filtering. SNPedia Lookup works by selecting the row you're interested in looking into and pressing the Lookup on SNPedia button. It will open up a new window with the details of the SNP.
+
 ## Installation:
 
 In order to set up the requirements. Make sure you have [python pip](https://packaging.python.org/installing/). The necessary dependencies can therein be added by pip install -r requirements.txt. This will install everything you need to use the script. It is written using Python 3. So make sure to use that when running the script and make sure environmental variables of PATH were set during installation of Python.
