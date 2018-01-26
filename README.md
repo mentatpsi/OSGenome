@@ -43,12 +43,18 @@ pip install -r requirements.txt
 This sets up the necessary dependencies (such as Flask, used to create a Python based web server and BeautifulSoup used to crawl through SNPedia).
 
 
-Step 1:
+Step 1 (option 1):
 ```
 python3 SNPedia/Datacrawler.py -f [Absolute path of your downloaded raw 23andMe data]
 ```
 This sets up the datacrawler using your data as a means to highlight what SNPs are relevant to you. 
 
+
+Step 1 (option 2):
+```
+python3 SNPedia/Datacrawler_GUI.py
+```
+This sets up the datacrawler with a file dialog using your data as a means to highlight what SNPs are relevant to you.
 
 Step 2:
 ```
