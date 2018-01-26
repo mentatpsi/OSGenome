@@ -147,6 +147,7 @@ root = Tk()
 if os.path.exists("lastsave.txt"):
     last_save = open("lastsave.txt","r")
     last_path = last_save.read()
+    last_save.close()
 else:
     last_path = "/"
 
