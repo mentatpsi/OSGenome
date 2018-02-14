@@ -139,7 +139,7 @@ rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", 
 rsid += ["rs1801133"]
 
 
-
+os.chdir(os.path.dirname(__file__))
 
 root = Tk()
 
@@ -180,6 +180,7 @@ if filepath:
 
 
 if __name__ == "__main__":
+    
     filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
     if os.path.isfile(filepath):
         dfCrawl = SNPCrawl(rsids=rsid, filepath=filepath)
