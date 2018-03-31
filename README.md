@@ -33,7 +33,7 @@ Last checked, 23AndMe had over 610,000 SNPs that comes from their raw SNP file, 
 OS Genome also has Excel Exporting, SNPedia Lookup, and filtering. SNPedia Lookup works by selecting the row you're interested in looking into and pressing the Lookup on SNPedia button. It will open up a new window with the details of the SNP.
 
 ## Disclaimer
-Raw Data coming from Genetic tests done by Direct To Consumer companies such as 23andMe and Ancestry.com were found to have a false positive rate of 40% of genes with clinical significance in a March 2018 study *False-positive results released by direct-to-consumer genetic tests highlight the importance of clinical confirmation testing for appropriate patient care*. For this reason, it's important to confirm any at risk clinical SNPs with your doctor who can provide genetic tests and send them to a clinical laboratory.
+Raw Data coming from Genetic tests done by Direct To Consumer companies such as 23andMe and Ancestry.com were found to have a false positive rate of 40% for genes with clinical significance in a March 2018 study *False-positive results released by direct-to-consumer genetic tests highlight the importance of clinical confirmation testing for appropriate patient care*. For this reason, it's important to confirm any at risk clinical SNPs with your doctor who can provide genetic tests and send them to a clinical laboratory.
 
 ## Installation:
 
