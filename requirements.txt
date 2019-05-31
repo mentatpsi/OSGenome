@@ -1,6 +1,6 @@
 beautifulsoup4==4.5.1
 xlrd==1.0.0
-Flask==0.11.1
+flask>=0.12.3
 argparse==1.4.0
 jsonify==0.5
-requests==2.11.1
+requests>=2.20.0
