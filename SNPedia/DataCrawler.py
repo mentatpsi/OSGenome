@@ -1,4 +1,9 @@
+import sys
 
+
+if (sys.version_info < (3, 0)):
+	print "Please use Python 3"
+	exit()
 from bs4 import BeautifulSoup
 from random import shuffle
 
