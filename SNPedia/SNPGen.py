@@ -28,7 +28,7 @@ class GrabSNPs:
         members = []
         count = 0
         if not cmcontinue:
-            curgen = "http://bots.snpedia.com//api.php?action=query&format=json&list=categorymembers&rawcontinue=0&cmtitle=Category%3Ais_a_snp"
+            curgen = "https://bots.snpedia.com//api.php?action=query&format=json&list=categorymembers&rawcontinue=0&cmtitle=Category%3Ais_a_snp"
             response = requests.get(curgen)
             jd = response.json()
 
@@ -36,7 +36,7 @@ class GrabSNPs:
             cmcontinue = jd["query-continue"]["categorymembers"]["cmcontinue"]
 
         while cmcontinue and count <= self.limit:
-            curgen = "http://bots.snpedia.com//api.php?action=query&format=json&list=categorymembers&rawcontinue=0&cmtitle=Category%3Ais_a_snp&cmcontinue=" \
+            curgen = "https://bots.snpedia.com//api.php?action=query&format=json&list=categorymembers&rawcontinue=0&cmtitle=Category%3Ais_a_snp&cmcontinue=" \
                      + cmcontinue
             response = requests.get(curgen)
             jd = response.json()
