@@ -26,7 +26,7 @@ Currently, there is a script I can upload to convert the formats. MyFamilyTree.c
 
 
 ## How much data will OS Genome grab?
-Last checked, 23AndMe had over 610,000 SNPs that comes from their raw SNP file, while MyFamilyTree.com had over 700,000 SNPs. OS Genome crawls a couple hundred each time. Each time you run step 1, it'll add additional several hundred SNPs to your result for you to examine. There's no real end, except for when all of the data has been covered, which is over 600,000 at a minimum. This was done to reduce the amount of data that needs to be crawled before you have something to examine. Feel free to run step 1 as often as you'd like to gain additional data, and no worries... it keeps track of your progress.
+Last checked, 23AndMe had over 610,000 SNPs that comes from their raw SNP file, while MyFamilyTree.com had over 700,000 SNPs. OS Genome crawls a couple hundred each time. Each time you run step 1, it'll add additional several hundred SNPs to your result for you to examine. This was done to reduce the amount of data that needs to be crawled before you have something to examine. OSGenome relies on the SNPs that SNPedia has covered. There are currently last checked, there were 110402 SNPS. So it will keep growing as SNPedia adds more SNPs into their database.  Feel free to run step 1 as often as you'd like to gain additional data, and no worries... it keeps track of your progress.
 
 
 ## What are some additional features?
