@@ -37,10 +37,29 @@
         <div id="example">
             <div id="grid"></div>
             <script>
-                $(document).ready(function() {
+
+                function exportExcel() {
+			return '<a class="k-button" href="#" id="selectallelements" onclick="exportToExcel()">Export to Excel</a>';
+                        
+                }
+
+                function exportToExcel() {
+			var grid1 = $("#grid").data("kendoGrid");
+			oldPageSize = grid1.dataSource.pageSize();
+			grid1.dataSource.pageSize(grid1.dataSource.data().length);
+                    	grid1.saveAsExcel()
+                };
+
+                $(document).ready(function () {
+
+
+
                     $("#grid").kendoGrid({
 
-                        toolbar: ["excel",
+                        toolbar: [{
+                            name: 'exportExcel1',
+                            template: '#= exportExcel()#',
+                        },
                         {
                             name:'lookupsnp',
                             template:'#= snplookup()#'
