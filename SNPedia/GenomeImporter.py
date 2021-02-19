@@ -23,7 +23,12 @@ class PersonalData:
         return not genotype == "(-;-)"
 
     def export(self):
-        filepath = os.path.join(os.path.curdir, "data", 'snpDict.json')
+        if os.path.exists("SNPedia"):
+            joiner = os.path.join(os.path.curdir,"SNPedia")
+        else:
+            joiner = os.path.curdir
+
+        filepath = os.path.join(joiner, "data", 'snpDict.json')
         with open(filepath, "w") as jsonfile:
             json.dump(self.snpdict, jsonfile)
 

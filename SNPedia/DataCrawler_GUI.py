@@ -124,7 +124,11 @@ class SNPCrawl:
         #data = data.transpose()
         #datapath = os.path.join(os.path.curdir, "data", 'rsidDict.csv')
         #data.to_csv(datapath)
-        filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
+        if os.path.exists("SNPedia"):
+            joiner = os.path.join(os.path.curdir,"SNPedia")
+        else:
+            joiner = os.path.curdir
+        filepath = os.path.join(joiner, "data", 'rsidDict.json')
         with open(filepath,"w") as jsonfile:
             json.dump(self.rsidDict, jsonfile)
 
@@ -161,7 +165,12 @@ root.filename = filedialog.askopenfilename(initialdir = last_path,title = "Selec
 root.destroy()
 filepath = root.filename
 
-path_split = os.path.split(filepath)
+if os.path.exists("SNPedia"):
+    joiner = os.path.join(os.path.curdir,"SNPedia")
+else:
+    joiner = os.path.curdir
+
+path_split = os.path.split(joiner)
 last_save = open("lastsave.txt","w")
 
 last_save.write(path_split[0])
@@ -183,8 +192,11 @@ if filepath:
 
 
 if __name__ == "__main__":
-    
-    filepath = os.path.join(os.path.curdir, "data", 'rsidDict.json')
+    if os.path.exists("SNPedia"):
+        joiner = os.path.join(os.path.curdir,"SNPedia")
+    else:
+        joiner = os.path.curdir
+    filepath = os.path.join(joiner, "data", 'rsidDict.json')
     if os.path.isfile(filepath):
         dfCrawl = SNPCrawl(rsids=rsid, filepath=filepath)
 

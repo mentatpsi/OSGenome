@@ -59,11 +59,20 @@ class GrabSNPs:
         self.cmcontinue = cmcontinue
 
     def lastsessionexists(self):
-        filepath = os.path.join(os.path.curdir, "data", 'last_session.txt')
+        if os.path.exists("SNPedia"):
+            joiner = os.path.join(os.path.curdir,"SNPedia")
+        else:
+            joiner = os.path.curdir
+
+        filepath = os.path.join(joiner, "data", 'last_session.txt')
         return os.path.isfile(filepath)
 
     def importlast(self):
-        filepath = os.path.join(os.path.curdir, "data", 'last_session.txt')
+        if os.path.exists("SNPedia"):
+            joiner = os.path.join(os.path.curdir,"SNPedia")
+        else:
+            joiner = os.path.curdir
+        filepath = os.path.join(joiner, "data", 'last_session.txt')
         lastsession = open(filepath, "r")
         lines = lastsession.readlines()
         lastsession.close()
@@ -73,7 +82,11 @@ class GrabSNPs:
 
 
     def export(self):
-        filepath = os.path.join(os.path.curdir, "data", 'last_session.txt')
+        if os.path.exists("SNPedia"):
+            joiner = os.path.join(os.path.curdir,"SNPedia")
+        else:
+            joiner = os.path.curdir
+        filepath = os.path.join(joiner, "data", 'last_session.txt')
         with open(filepath, "w") as lastsession:
             lastsession.write(self.cmcontinue)
             lastsession.close()
