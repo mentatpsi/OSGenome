@@ -41,7 +41,10 @@ class GrabSNPs:
             response = requests.get(curgen)
             jd = response.json()
             members.append(jd["query"]["categorymembers"])
-            cmcontinue = jd["query-continue"]["categorymembers"]["cmcontinue"]
+            try:
+                cmcontinue = jd["query-continue"]["categorymembers"]["cmcontinue"]
+            except KeyError:
+                cmcomtinue = None
             count += 1
 
         members = [[i["title"] for i in item] for item in members]
