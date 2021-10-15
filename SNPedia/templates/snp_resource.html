@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <style>
+        html {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
     <title></title>
     <link rel="stylesheet" href="css/kendo.common-material.min.css" />
     <link rel="stylesheet" href="css/kendo.material.min.css" />
@@ -10,119 +15,142 @@
     <script src="js/jszip.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/kendo.all.min.js"></script>
-<style>
-.main {
-    float: left;
-    height: 950px;
-    background-image: url('../images/dna-body.png');
-    width: 350px;
-    background-size:100%;
+    <style>
+        html,
+        body,
+        .grid,
+        #grid {
+            margin: 0;
+            padding: 0;
+            border-width: 0;
+            height: 100%;
+        }
 
-  }
-.grid {
-    width: 1050px;
-    height: 1.3em;
-    position: absolute;
-    display: inline;
-}
-</style>
+        .image {
+            float: left;
+            height: 100vh;
+            width: 350px;
+            background-image: url('../images/dna-body.png');
+            background-size: cover;
+        }
+
+        .grid {
+            float: right;
+            width: calc(100% - 350px);
+        }
+
+        @media (max-width: 1000px) {
+            .image { width: 125px; }
+            .grid { width: calc(100% - 125px); }
+        }
+
+        @media (max-width: 800px) {
+            .image { display: none; }
+            .grid { float: none; width: 100%; }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="main">
-    <div id="content">
-    </div>
- </div>
-	<div class="grid">
-        <div id="example">
-            <div id="grid"></div>
-            <script>
+    <div class="image"></div>
+    <div class="grid">
+        <div id="grid"></div>
+        <script>
 
-                function exportExcel() {
-			return '<a class="k-button" href="#" id="selectallelements" onclick="exportToExcel()">Export to Excel</a>';
-                        
-                }
+            function exportExcel() {
+                return '<a class="k-button" href="#" id="selectallelements" onclick="exportToExcel()">Export to Excel</a>';
 
-                function exportToExcel() {
-			var grid1 = $("#grid").data("kendoGrid");
-			oldPageSize = grid1.dataSource.pageSize();
-			grid1.dataSource.pageSize(grid1.dataSource.data().length);
-                    	grid1.saveAsExcel()
-                };
+            }
 
-                $(document).ready(function () {
+            function exportToExcel() {
+                var grid1 = $("#grid").data("kendoGrid");
+                oldPageSize = grid1.dataSource.pageSize();
+                grid1.dataSource.pageSize(grid1.dataSource.data().length);
+                grid1.saveAsExcel()
+            };
 
-
-
-                    $("#grid").kendoGrid({
-
-                        toolbar: [{
-                            name: 'exportExcel1',
-                            template: '#= exportExcel()#',
-                        },
-                        {
-                            name:'lookupsnp',
-                            template:'#= snplookup()#'
-                        }
-                        ],
-                        excel: {
-                            fileName: "SNP Report.xlsx",
-                            proxyURL: "/excel",
-                            filterable: true
-                        },
-
-                        dataSource: {
-                            dataType: "json",
-                            transport: {
-                                read: "/api/rsids"
-                            },
-                            sort: {
-                                field: "Variations",
-                                dir: "desc"
-                            },
-                            schema: {
-                                data: function(response) {
-                                    return response.results;
-                                }
-                            },
-                            pageSize: 50
-                        },
-                        columns: [
-                       { field: "Name", width: '190px', title: "Name" },
-                       { field: "Description", width: '290px', title: "Short Description" },
-                       { field: "Genotype", width: '190px', title: "Individual Genotype" },
-                       { field: "Variations", width: '490px', title: "Genotype variations", encoded: false },
-                         ],
-                        height: 950,
-                        filterable: true,
-                        sortable: true,
-                        pageable: {
-                            refresh: true,
-                            pageSizes: [25, 50, 100, 250],
-                            buttonCount: 5
-                        },
-                        selectable: "row",
-                        allowCopy: true,
-                        reorderable: true
-                    });
+            $(window).resize(function () {
+                var gridElement = $("#grid"),
+                dataArea = gridElement.find(".k-grid-content"),
+                gridHeight = gridElement.innerHeight(),
+                otherElements = gridElement.children().not(".k-grid-content"),
+                otherElementsHeight = 0;
+                otherElements.each(function () {
+                    otherElementsHeight += $(this).outerHeight();
                 });
-                function snplookup(e){
-                            return '<a class="k-button" href="#" id="lookupsnp" onclick="snpedia()">Lookup on SNPedia</a>';
-                        };
-                        function snpedia(){
-                            var entityGrid = $("#grid").data("kendoGrid");
-                            var rows = entityGrid.select();
-                            var rsid = rows[0].cells[0].innerText
+                console.log('resizing to', gridHeight - otherElementsHeight)
+                dataArea.height(gridHeight - otherElementsHeight);
+            })
 
-                            var html = "https://bots.snpedia.com/index.php/"
-                            var link = html.concat(rsid)
-                            window.open(link);
-                        };
-            </script>
-</div>
-</div>
+            $(document).ready(function () {
 
+                $("#grid").kendoGrid({
+                    toolbar: [{
+                        name: 'exportExcel1',
+                        template: '#= exportExcel()#',
+                    },
+                    {
+                        name: 'lookupsnp',
+                        template: '#= snplookup()#'
+                    }
+                    ],
+                    excel: {
+                        fileName: "SNP Report.xlsx",
+                        proxyURL: "/excel",
+                        filterable: true
+                    },
+
+                    dataSource: {
+                        dataType: "json",
+                        transport: {
+                            read: "/api/rsids"
+                        },
+                        sort: {
+                            field: "Variations",
+                            dir: "desc"
+                        },
+                        schema: {
+                            data: function (response) {
+                                return response.results;
+                            }
+                        },
+                        pageSize: 50
+                    },
+                    columns: [
+                        { field: "Name", width: '190px', title: "Name" },
+                        { field: "Description", width: '290px', title: "Short Description" },
+                        { field: "Genotype", width: '190px', title: "Individual Genotype" },
+                        { field: "Variations", width: '490px', title: "Genotype variations", encoded: false },
+                    ],
+                    height: '100%',
+                    filterable: true,
+                    sortable: true,
+                    pageable: {
+                        refresh: true,
+                        pageSizes: [25, 50, 100, 250],
+                        buttonCount: 5
+                    },
+                    selectable: "row",
+                    allowCopy: true,
+                    reorderable: true,
+                    resizable: true,
+                });
+            });
+            function snplookup(e) {
+                return '<a class="k-button" href="#" id="lookupsnp" onclick="snpedia()">Lookup on SNPedia</a>';
+            };
+            function snpedia() {
+                var entityGrid = $("#grid").data("kendoGrid");
+                var rows = entityGrid.select();
+                var rsid = rows[0].cells[0].innerText
+
+                var html = "https://bots.snpedia.com/index.php/"
+                var link = html.concat(rsid)
+                window.open(link);
+            };
+        </script>
+    </div>
 
 </body>
 </html>
-
