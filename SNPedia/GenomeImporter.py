@@ -74,6 +74,7 @@ class Approved:
         members = []
         count = 0
         self.accepted = []
+        print("Grabbing approved SNPs")
         if not cmcontinue:
             curgen = "https://bots.snpedia.com/api.php?action=query&list=categorymembers&cmtitle=Category:Is_a_snp&cmlimit=500&format=json"
             response = requests.get(curgen)

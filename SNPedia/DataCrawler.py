@@ -146,6 +146,8 @@ rsid += ["rs1801133"]
 if args["filepath"]:
     personal = PersonalData(args["filepath"])
     snpsofinterest = [snp for snp in personal.snps if personal.hasGenotype(snp)]
+    count_of_interest = len(snpsofinterest)
+    print("Found " + str(count_of_interest) + " SNPS to be mapped to SNPedia")
     sp = GrabSNPs(crawllimit=60, snpsofinterest=snpsofinterest, target=100)
     rsid += sp.snps
     print(len(sp.snps))
