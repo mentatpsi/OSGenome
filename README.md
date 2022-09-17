@@ -37,6 +37,9 @@ OS Genome also has Excel Exporting, SNPedia Lookup, and filtering. SNPedia Looku
 ## Disclaimer
 Raw Data coming from Genetic tests done by Direct To Consumer companies such as 23andMe and Ancestry.com were found to have a false positive rate of 40% for genes with clinical significance in a March 2018 study [*False-positive results released by direct-to-consumer genetic tests highlight the importance of clinical confirmation testing for appropriate patient care*](https://www.nature.com/articles/gim201838). For this reason, it's important to confirm any at risk clinical SNPs with your doctor who can provide genetic tests and send them to a clinical laboratory.
 
+## Contributions
+There have been two contributions so far. Both have been reviewed for security. One contains a front end improvement for users. The other is an upgrade to BeautifulSoup to support Python 3.10. Both of these upgrades do not change the storage of 23andMe data nor expose it to the cloud. Keeping your data secure and allowing the user to make meaningful discoveries of your data is the critical mission of this application. BeautifulSoup intelligently processes HTML data gathered from the Encyclopedia and does not touch 23AndMe genetic data.  
+
 ## Installation:
 
 In order to set up the requirements. Make sure you have [python pip](https://packaging.python.org/installing/). The necessary dependencies can therein be added by pip install -r requirements.txt. This will install everything you need to use the script. It is written using Python 3. So make sure to use that when running the script and make sure environmental variables of PATH were set during installation of Python for Windows.
