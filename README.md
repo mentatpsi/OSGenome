@@ -50,14 +50,14 @@ This sets up the necessary dependencies (such as Flask, used to create a Python 
 
 Step 1 (option 1):
 ```
-python3 SNPedia/Datacrawler.py -f [Absolute path of your downloaded raw 23andMe data]
+python3 SNPedia/DataCrawler.py -f [Absolute path of your downloaded raw 23andMe data]
 ```
 This sets up the datacrawler using your data as a means to highlight what SNPs are relevant to you. 
 
 
 Step 1 (option 2):
 ```
-python3 SNPedia/Datacrawler_GUI.py
+python3 SNPedia/DataCrawler_GUI.py
 ```
 This sets up the datacrawler with a file dialog using your data as a means to highlight what SNPs are relevant to you.
 
