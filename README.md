@@ -35,7 +35,9 @@ At current, if you cross reference a 23andMe report with SNPedia, it will have a
 OS Genome also has Excel Exporting, SNPedia Lookup, and filtering. SNPedia Lookup works by selecting the row you're interested in looking into and pressing the Lookup on SNPedia button. It will open up a new window with the details of the SNP.
 
 ## Contributions
-There have been three contributions so far. All have been reviewed for security. One contains a front end improvement for users. The other is an upgrade to BeautifulSoup to support Python 3.10. Both of these upgrades do not change the storage of 23andMe data nor expose it to the cloud. Keeping your data secure and allowing the user to make meaningful discoveries of your data is the critical mission of this application. BeautifulSoup intelligently processes HTML data gathered from the Encyclopedia and does not touch 23AndMe genetic data. The third is a capitalization in the ReadMe file. As a general policy, no PRs are accepted that change the working that touch 23AndMe data. This is to keep your data safe.
+There have been three contributions so far.
+- Daniel McNally [@sangaman](https://github.com/sangaman) | Python 3.10 Compatability through dependencies and ReadMe improvements
+- Dan Grahn [@dgrahn](https://github.com/dgrahn) | Front End Improvements
 
 ## Disclaimer
 Raw Data coming from Genetic tests done by Direct To Consumer companies such as 23andMe and Ancestry.com were found to have a false positive rate of 40% for genes with clinical significance in a March 2018 study [*False-positive results released by direct-to-consumer genetic tests highlight the importance of clinical confirmation testing for appropriate patient care*](https://www.nature.com/articles/gim201838). For this reason, it's important to confirm any at risk clinical SNPs with your doctor who can provide genetic tests and send them to a clinical laboratory.
