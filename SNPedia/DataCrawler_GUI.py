@@ -124,17 +124,27 @@ class SNPCrawl:
                 "StabilizedOrientation":stbl_orientation 
             }
 
-        formatCell = lambda rsid, variation, curdict : \
+        formatCell = lambda rsid, variation, stbl_orient : \
             "<b>" + str.join(" ", variation) + "</b>" \
                 if rsid.lower() in self.snpdict.keys() and \
                    self.snpdict[rsid.lower()] == variation[0] \
-                    and curdict["StabilizedOrientation"] == "plus" \
+                    and stbl_orient == "plus" \
                 else str.join(" ", variation)
 
+        messaged_once = False
         for rsid in self.rsidDict.keys():
             curdict = self.rsidDict[rsid]
-            variations = [formatCell(rsid, variation, curdict) for variation in curdict["Variations"]]
-            maker = make(rsid, curdict["Description"], variations,curdict["StabilizedOrientation"])
+            if "StabilizedOrientation" in curdict:
+                stbl_orient = curdict["StabilizedOrientation"]
+            else:
+                stbl_orient = "Old Data Format"
+                if not messaged_once:
+                    print("Old Data Detected, Will not display variations bolding with old data.") 
+                    print("See ReadMe for more details")
+                    messaged_once = True
+            variations = [formatCell(rsid, variation, stbl_orient) for variation in curdict["Variations"]]
+            
+            maker = make(rsid, curdict["Description"], variations, stbl_orient)
             
             self.rsidList.append(maker)
 
