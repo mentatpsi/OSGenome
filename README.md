@@ -35,6 +35,9 @@ For conditions of Stabilized Orientation equaling Minus, try flipping them as su
 
  Currently, Human Genome testing uses [GRCh38](https://www.nature.com/articles/d41586-021-00462-9#:~:text=The%20most%20recent%20version%20of,has%20been%20repeatedly%20'patched)
 
+### Steps to introduce Orientation in a Pre-Existing Environment
+If you are attempting to retrieve Orientation a new environment must be set up (deleting the json files in data folder). I recommend backing up the files before doing this so you can go back to it
+
 ## Does OS Genome work through other SNP/Ancestry sites?
 Currently, there is a script I can upload to convert the formats. MyFamilyTree.com, for instance, uses a comma to separate their data, while 23AndMe uses tabs, that's pretty much the main difference. If there's enough demand, I can easily include it to the workflow... so feel free to request the addition. As OS Genome improves, a lot of functionality is likely to arise.
 
