@@ -129,7 +129,7 @@ class SNPCrawl:
             if "StabilizedOrientation" in curdict:
                 stbl_orient = curdict["StabilizedOrientation"]
             else:
-                stbl_orient = ""
+                stbl_orient = "Old Data Format"
                 if not messaged_once:
                     print("Old Data Detected, Will not display variations bolding with old data.") 
                     print("See ReadMe for more details")
