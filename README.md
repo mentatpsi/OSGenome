@@ -20,6 +20,9 @@ All of your genetic data (your raw data) is stored and used locally on your comp
 ## How do I grab my raw SNP Data?
 Since it's quite possible 23AndMe will change the way you download the raw data... this might change from time to time. Just look up how to download 23AndMe raw data in Google, and you might just find a link to 23AndMe to download the raw data. It'll be in a comma separated format. 
 
+## Orientation (Important)
+SNPedia reports SNPs as Positive strands per tradition of public snp datasets and the initial build it what made out of [(More research here)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6099125/). While the latest algorithm might report them as negative or plus. What this means is that for Stabilized Orientations, you must flip the orientation to get the correct genotype as mapped by SNPedia if the Stabilize Orientation is equal to minus. OSGenome automatically relays the Stabilized Orientation, but to avoid confusion, does not map the corrected genotype and also does not highlight the correct variation. (See here for more information by SNPedia authors)[https://www.reddit.com/r/promethease/comments/3ayg64/orientation_confusion/]. In a future release, per request, this might change.
+
 
 ## Does OS Genome work through other SNP/Ancestry sites?
 Currently, there is a script I can upload to convert the formats. MyFamilyTree.com, for instance, uses a comma to separate their data, while 23AndMe uses tabs, that's pretty much the main difference. If there's enough demand, I can easily include it to the workflow... so feel free to request the addition. As OS Genome improves, a lot of functionality is likely to arise.
@@ -80,4 +83,4 @@ Access http://127.0.0.1:5000 (the ip address also known as localhost, it's all h
 There exists a library arv ([GitHub: cslarsen/arv - A fast 23andMe DNA parser and inferrer for Python](https://github.com/cslarsen/arv)) that allows for rule based matching of health and trait attributes using a hash table of the raw data of 23andMe. It is possible to alter the rsidDict.json to allow for automatically populating the rule matching conditions. I will be designing this functionality in a python script that will be able to be used to import the JSON as a dictionary that can be called within the rule matching. Please keep in mind its respective disclaimers before using the service. 
 
 ## Example
-![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/images/OSGenome5.PNG)
+![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/images/OSGenome6.PNG)
