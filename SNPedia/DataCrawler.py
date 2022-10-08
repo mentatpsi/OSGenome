@@ -56,13 +56,35 @@ class SNPCrawl:
             if rsid not in self.rsidDict.keys():
                 self.rsidDict[rsid.lower()] = {
                     "Description": "",
-                    "Variations": []
+                    "Variations": [],
+                    "StabilizedOrientation": ""
                 }
                 response = urllib.request.urlopen(url)
                 html = response.read()
                 bs = BeautifulSoup(html, "html.parser")
                 table = bs.find("table", {"class": "sortable smwtable"})
                 description = bs.find('table', {'style': 'border: 1px; background-color: #FFFFC0; border-style: solid; margin:1em; width:90%;'})
+                
+                #Orientation Finder
+                orientation = bs.find("td", string="Rs_StabilizedOrientation")
+                if orientation:
+                    plus = orientation.parent.find("td",string="plus")
+                    minus = orientation.parent.find("td",string="minus")
+                    if plus:
+                        self.rsidDict[rsid]["StabilizedOrientation"] = "plus"
+                    if minus:
+                        self.rsidDict[rsid]["StabilizedOrientation"] = "minus" 
+                else:
+                      link = bs.find("a",{"title":"StabilizedOrientation"})
+                      if link:
+                        table_row = link.parent.parent
+                        plus = table_row.find("td",string="plus")
+                        minus = table_row.find("td",string="minus")
+                        if plus:
+                            self.rsidDict[rsid]["StabilizedOrientation"] = "plus"
+                        if minus:
+                            self.rsidDict[rsid]["StabilizedOrientation"] = "minus" 
+
 
                 if description:
                     d1 = self.tableToList(description)
@@ -85,23 +107,30 @@ class SNPCrawl:
         return data
 
     def createList(self):
-        make = lambda rsname, description, variations: \
+        make = lambda rsname, description, variations, stbl_orientation: \
             {"Name": rsname,
              "Description": description,
              "Genotype": self.snpdict[rsname.lower()] \
-             if rsname.lower() in self.snpdict.keys() else "(-;-)", \
-             "Variations": str.join("<br>", variations)}
+                if rsname.lower() in self.snpdict.keys() else "(-;-)", \
+             "Variations": str.join("<br>", variations), \
+                "StabilizedOrientation":stbl_orientation 
+            }
 
-        formatCell = lambda rsid, variation : \
+        formatCell = lambda rsid, variation, curdict : \
             "<b>" + str.join(" ", variation) + "</b>" \
                 if rsid.lower() in self.snpdict.keys() and \
                    self.snpdict[rsid.lower()] == variation[0] \
+                    and curdict["StabilizedOrientation"] == "plus" \
                 else str.join(" ", variation)
 
         for rsid in self.rsidDict.keys():
             curdict = self.rsidDict[rsid]
-            variations = [formatCell(rsid, variation) for variation in curdict["Variations"]]
-            self.rsidList.append(make(rsid, curdict["Description"], variations))
+            variations = [formatCell(rsid, variation, curdict) for variation in curdict["Variations"]]
+            maker = make(rsid, curdict["Description"], variations,curdict["StabilizedOrientation"])
+            
+            self.rsidList.append(maker)
+
+
 
         #print(self.rsidList[:5])
 
