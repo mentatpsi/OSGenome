@@ -24,8 +24,8 @@ Since it's quite possible 23AndMe will change the way you download the raw data.
 SNPedia reports SNPs of an  initial build it was made out of. Current vendors of Genomic Testing use a different build. To handle this SNPedia introduced a Stabilized Orientation and Orientation field. OSGenome automatically relays the Stabilized Orientation, but to avoid confusion, does not map the corrected genotype and also does not highlight the correct variation. This is done as builds might change one day and this fix might not be needed as well as the presence of ambiguous genotype mappings. 
 [See here for more information by SNPedia authors](https://www.reddit.com/r/promethease/comments/3ayg64/orientation_confusion/). 
 
-In best words, if the orientation is minus, there is a layer of ambiguity to your test results for the SNP as this is a result of build differences across what SNPedia was built on, and what 23AndMe and others genome testing report. A tutorial and more information can be found [here](https://www.snpedia.com/index.php/Orientation#:~:text=Orientation%20indicates%20the%20orientation%20reported,reference%20build%20is%20shown%20next). 
-For conditions of Stabilized Orientation equaling Minus, try flipping them as such:
+In best words, if the orientation is minus and you are using 23AndMe (which only reports on positive, last checked: October|2022), there is a layer of ambiguity to your test results for the SNP as this is a result of build differences across what SNPedia was built on, and what 23AndMe and others genome testing report. A tutorial and more information can be found [here](https://www.snpedia.com/index.php/Orientation#:~:text=Orientation%20indicates%20the%20orientation%20reported,reference%20build%20is%20shown%20next). 
+For conditions of Stabilized Orientation equaling Minus and using 23AndMe raw data, try flipping them as such:
 - A->T
 - T->A
 - C->G
