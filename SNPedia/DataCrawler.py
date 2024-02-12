@@ -1,5 +1,5 @@
 import sys
-
+from typing import Optional
 
 from bs4 import BeautifulSoup
 from random import shuffle
@@ -106,22 +106,22 @@ class SNPCrawl:
             data.append([ele for ele in cols if ele])
         return data
 
+    def _chooseVariation(self, our_snp, variations, stbl_orient: str) -> Optional[int]:
+        for i, variation in enumerate(variations):
+            if our_snp == variation[0] and stbl_orient == "plus":  # TODO: Support negative orientation.
+                return i
+        return None
+
     def createList(self):
-        make = lambda rsname, description, variations, stbl_orientation: \
+        make = lambda rsname, description, variations, stbl_orientation, importance: \
             {"Name": rsname,
              "Description": description,
+             "Importance": importance,
              "Genotype": self.snpdict[rsname.lower()] \
                 if rsname.lower() in self.snpdict.keys() else "(-;-)", \
              "Variations": str.join("<br>", variations), \
                 "StabilizedOrientation":stbl_orientation 
             }
-
-        formatCell = lambda rsid, variation, stbl_orient : \
-            "<b>" + str.join(" ", variation) + "</b>" \
-                if rsid.lower() in self.snpdict.keys() and \
-                   self.snpdict[rsid.lower()] == variation[0] \
-                    and stbl_orient == "plus" \
-                else str.join(" ", variation)
 
         messaged_once = False
         for rsid in self.rsidDict.keys():
@@ -134,9 +134,28 @@ class SNPCrawl:
                     print("Old Data Detected, Will not display variations bolding with old data.") 
                     print("See ReadMe for more details")
                     messaged_once = True
-            variations = [formatCell(rsid, variation, stbl_orient) for variation in curdict["Variations"]]
-            
-            maker = make(rsid, curdict["Description"], variations, stbl_orient)
+
+            variations_data = curdict["Variations"]
+            if rsid.lower() in self.snpdict.keys():
+                variation_idx = self._chooseVariation(
+                    our_snp=self.snpdict[rsid.lower()],
+                    variations=variations_data,
+                    stbl_orient=stbl_orient,
+                )
+            else:
+                variation_idx = None
+
+            variations = [" ".join(variation) for variation in variations_data]
+            importance = None
+            if variation_idx is not None:
+                variations[variation_idx] = f'<b>{variations[variation_idx]}</b>'
+                try:
+                    if len(variations_data[variation_idx]) > 1:
+                        importance = float(variations_data[variation_idx][1])
+                except ValueError:
+                    pass  # Ignore missing importance.
+
+            maker = make(rsid, curdict["Description"], variations, stbl_orient, importance)
             
             self.rsidList.append(maker)
 
