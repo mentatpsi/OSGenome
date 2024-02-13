@@ -55,6 +55,7 @@ OS Genome also has Excel Exporting, SNPedia Lookup, and filtering. SNPedia Looku
 There have been three contributions so far.
 - Daniel McNally [@sangaman](https://github.com/sangaman) | Python 3.10 Compatability through dependencies and ReadMe improvements
 - Dan Grahn [@dgrahn](https://github.com/dgrahn) | Front End Improvements
+- Mikołaj Zalewski [@mikolajz](https://github.com/mikolajz) | Importance Column | Detailed SNP Error Logging | Feel free to take a look at [Relevant Feature Branch](https://github.com/mentatpsi/OSGenome/tree/feature/importance-check-and-detailed-error)
 
 ## Disclaimer
 Raw Data coming from Genetic tests done by Direct To Consumer companies such as 23andMe and Ancestry.com were found to have a false positive rate of 40% for genes with clinical significance in a March 2018 study [*False-positive results released by direct-to-consumer genetic tests highlight the importance of clinical confirmation testing for appropriate patient care*](https://www.nature.com/articles/gim201838). For this reason, it's important to confirm any at risk clinical SNPs with your doctor who can provide genetic tests and send them to a clinical laboratory.
