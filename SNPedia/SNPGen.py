@@ -2,6 +2,13 @@ import requests
 import os
 
 
+def json_with_detailed_error(response: requests.Response):
+    try:
+        return response.json()
+    except requests.exceptions.JSONDecodeError as e:
+        raise RuntimeError(f"Error decoding {response.text} as JSON") from e
+
+
 class GrabSNPs:
     """GrabSNPs(crawllimit, target, snpofinterest) ->
     crawls and attains a list of SNPedia compatible SNPs found within the snps of interest array
@@ -30,7 +37,7 @@ class GrabSNPs:
         if not cmcontinue:
             curgen = "https://bots.snpedia.com//api.php?action=query&format=json&list=categorymembers&rawcontinue=0&cmtitle=Category%3Ais_a_snp"
             response = requests.get(curgen)
-            jd = response.json()
+            jd = json_with_detailed_error(response)
 
             members.append(jd["query"]["categorymembers"])
             cmcontinue = jd["query-continue"]["categorymembers"]["cmcontinue"]
@@ -39,7 +46,8 @@ class GrabSNPs:
             curgen = "https://bots.snpedia.com//api.php?action=query&format=json&list=categorymembers&rawcontinue=0&cmtitle=Category%3Ais_a_snp&cmcontinue=" \
                      + cmcontinue
             response = requests.get(curgen)
-            jd = response.json()
+            jd = json_with_detailed_error(response)
+
             members.append(jd["query"]["categorymembers"])
             try:
                 cmcontinue = jd["query-continue"]["categorymembers"]["cmcontinue"]
