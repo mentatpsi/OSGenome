@@ -1,5 +1,5 @@
 import sys
-from typing import Optional
+from typing import Optional, Sequence
 
 from bs4 import BeautifulSoup
 from random import shuffle
@@ -13,11 +13,11 @@ import random
 
 
 from SNPGen import GrabSNPs
-from GenomeImporter import PersonalData
+from GenomeImporter import PersonalData, Approved
 
 
 class SNPCrawl:
-    def __init__(self, rsids=[], filepath=None, snppath=None):
+    def __init__(self, filepath=None, snppath=None):
         if filepath and os.path.isfile(filepath):
             self.importDict(filepath)
             self.rsidList = []
@@ -30,6 +30,9 @@ class SNPCrawl:
         else:
             self.snpdict = {}
 
+        self.createList()
+
+    def crawl(self, rsids: Sequence[str]) -> None:
         rsids = [item.lower() for item in rsids]
         if rsids:
             self.initcrawl(rsids)
@@ -186,43 +189,61 @@ class SNPCrawl:
             json.dump(self.rsidDict, jsonfile)
 
 
-parser = argparse.ArgumentParser()
-
-
-parser.add_argument('-f', '--filepath', help='Filepath for 23andMe data to be used for import', required=False)
-
-args = vars(parser.parse_args())
-
-
 #Some interesting SNPs to get started with
-rsid = ["rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", "rs4988235", "rs6806903", "rs4244285"]
-rsid += ["rs1801133"]
+SEED_RSIDS = [
+    "rs1815739", "Rs53576", "rs4680", "rs1800497", "rs429358", "rs9939609", "rs4988235", "rs6806903", "rs4244285",
+    "rs1801133",
+]
 
 #os.chdir(os.path.dirname(__file__))
 
 
-if args["filepath"]:
-    personal = PersonalData(args["filepath"])
-    snpsofinterest = [snp for snp in personal.snps if personal.hasGenotype(snp)]
-    count_of_interest = len(snpsofinterest)
-    print("Found " + str(count_of_interest) + " SNPS to be mapped to SNPedia")
-    sp = GrabSNPs(crawllimit=60, snpsofinterest=snpsofinterest, target=100)
-    rsid += sp.snps
-    print(len(sp.snps))
-    temp = personal.snps
-    random.shuffle(temp)
-    print(temp[:10])
-    rsid += temp[:50]
+def find_relevant_rsids(
+        personal: PersonalData,
+        crawl: SNPCrawl,
+        count: int = 100,
+) -> Sequence[str]:
+    snps_of_interest = [snp for snp in personal.snps if personal.hasGenotype(snp)]
+    snps_to_grab = [snp for snp in snps_of_interest if snp not in crawl.rsidDict]
+    print(f"Yet to load: {len(snps_to_grab)}/{len(snps_of_interest)} genome SNPs available in SNPedia")
+    snps_to_grab_set = set(snps_to_grab)
+
+    result = []
+    for rsid in SEED_RSIDS:
+        if rsid in snps_to_grab_set:
+            result.append(rsid)
+
+    if len(result) < count:
+        random.shuffle(snps_to_grab)
+        result.extend(snps_to_grab[:count - len(result)])
+
+    print(f"Chose {len(result)} SNPs to load")
+    return result
 
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--filepath', help='Filepath for 23andMe data to be used for import', required=False)
+    args = parser.parse_args()
+
     if os.path.exists("SNPedia"):
         joiner = os.path.join(os.path.curdir,"SNPedia")
     else:
         joiner = os.path.curdir
     filepath = os.path.join(joiner, "data", 'rsidDict.json')
     if os.path.isfile(filepath):
-        dfCrawl = SNPCrawl(rsids=rsid, filepath=filepath)
-
+        dfCrawl = SNPCrawl(filepath=filepath)
     else:
-        dfCrawl = SNPCrawl(rsids=rsid)
+        dfCrawl = SNPCrawl()
+
+    if args.filepath:
+        rsids_on_snpedia = Approved()
+        personal = PersonalData(args.filepath, rsids_on_snpedia)
+        rsids = find_relevant_rsids(personal, dfCrawl)
+    else:
+        rsids = SEED_RSIDS
+
+    dfCrawl.crawl(rsids)
+
+if __name__ == "__main__":
+    main()

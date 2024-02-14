@@ -18,7 +18,7 @@ from tkinter import *
 
 
 from SNPGen import GrabSNPs
-from GenomeImporter import PersonalData
+from GenomeImporter import PersonalData, Approved
 
 
 class SNPCrawl:
@@ -220,7 +220,8 @@ last_save.close()
 
 
 if filepath:
-    personal = PersonalData(filepath)
+    rsids_on_snpedia = Approved()
+    personal = PersonalData(filepath, rsids_on_snpedia)
     snpsofinterest = [snp for snp in personal.snps if personal.hasGenotype(snp)]
     count_of_interest = len(snpsofinterest)
     print("Found " + str(count_of_interest) + " SNPS to be mapped to SNPedia")

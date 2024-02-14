@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import os
 import string
@@ -6,7 +8,8 @@ import requests
 import pprint
 
 class PersonalData:
-    def __init__(self, filepath):
+    def __init__(self, filepath, approved: Approved):
+        self._approved = approved
         if os.path.exists(filepath):
             self.readData(filepath)
             self.export()
@@ -17,9 +20,8 @@ class PersonalData:
         with open(filepath) as file:
             relevantdata = [line for line in file.readlines() if line[0] != "#"]
             file.close()
-        
 
-        ap = Approved()
+        ap = self._approved
         approved = dict(zip(ap.accepted,[i for i in range(len(ap.accepted))]))
         personaldata = [line.split("\t") for line in relevantdata]
         self.personaldata = [pd for pd in personaldata if pd[0].lower() in approved]
@@ -121,7 +123,8 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
 
     if args["filepath"]:
-        pd = PersonalData(filepath=args["filepath"])
+        rsids_on_snpedia = Approved()
+        pd = PersonalData(filepath=args["filepath"], approved=rsids_on_snpedia)
         print(len(pd.personaldata))
         print(pd.snps[:50])
         print(list(pd.snpdict.keys())[:10])
