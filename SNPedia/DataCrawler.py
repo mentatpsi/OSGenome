@@ -1,18 +1,15 @@
 import sys
 from typing import Optional, Sequence
 
+import requests
 from bs4 import BeautifulSoup
-from random import shuffle
 
-import urllib.request
 import pprint
 import json
 import argparse
 import os
 import random
 
-
-from SNPGen import GrabSNPs
 from GenomeImporter import PersonalData, Approved
 
 
@@ -41,29 +38,30 @@ class SNPCrawl:
 
     def initcrawl(self, rsids):
         count = 0
-        for rsid in rsids:
-            print(rsid)
-            self.grabTable(rsid)
-            print("")
-            count += 1
-            if count % 100 == 0:
-                print("%i out of %s completed" % (count, len(rsids)))
-                self.export()
-                print("exporting current results")
+        with requests.Session() as session:
+            for rsid in rsids:
+                print(rsid)
+                self.grabTable(rsid, session)
+                print("")
+                count += 1
+                if count % 100 == 0:
+                    print("%i out of %s completed" % (count, len(rsids)))
+                    self.export()
+                    print("exporting current results")
         pp = pprint.PrettyPrinter(indent=1)
         #pp.pprint(self.rsidDict)
 
-    def grabTable(self, rsid):
+    def grabTable(self, rsid: str, session: requests.Session) -> None:
+        url = "https://bots.snpedia.com/index.php/" + rsid
         try:
-            url = "https://bots.snpedia.com/index.php/" + rsid
             if rsid not in self.rsidDict.keys():
                 self.rsidDict[rsid.lower()] = {
                     "Description": "",
                     "Variations": [],
                     "StabilizedOrientation": ""
                 }
-                response = urllib.request.urlopen(url)
-                html = response.read()
+                response = session.get(url)
+                html = response.content
                 bs = BeautifulSoup(html, "html.parser")
                 table = bs.find("table", {"class": "sortable smwtable"})
                 description = bs.find('table', {'style': 'border: 1px; background-color: #FFFFC0; border-style: solid; margin:1em; width:90%;'})
@@ -97,7 +95,7 @@ class SNPCrawl:
                     d2 = self.tableToList(table)
                     self.rsidDict[rsid]["Variations"] = d2[1:]
                     print(d2[1:])
-        except urllib.error.HTTPError:
+        except requests.exceptions.RequestException:
             print(url + " was not found or contained no valid information")
 
     def tableToList(self, table):
@@ -244,6 +242,7 @@ def main():
         rsids = SEED_RSIDS
 
     dfCrawl.crawl(rsids)
+
 
 if __name__ == "__main__":
     main()
