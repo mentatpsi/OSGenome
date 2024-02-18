@@ -1,3 +1,5 @@
+import logging
+import re
 import sys
 from typing import Optional, Sequence
 
@@ -11,6 +13,16 @@ import os
 import random
 
 from GenomeImporter import PersonalData, Approved
+
+
+COMPLEMENTS = {
+    "A": "T",
+    "T": "A",
+    "C": "G",
+    "G": "C",
+}
+
+VARIANT_REGEXP = re.compile(r'\(([ACTG-]);([ACTG-])\)')
 
 
 class SNPCrawl:
@@ -107,10 +119,35 @@ class SNPCrawl:
             data.append([ele for ele in cols if ele])
         return data
 
-    def _chooseVariation(self, our_snp, variations, stbl_orient: str) -> Optional[int]:
+    def _complement(self, variant: str) -> Optional[str]:
+        m = VARIANT_REGEXP.match(variant)
+        if m is None:
+            #print("XXX", variant)
+            return None
+
+        comp1 = COMPLEMENTS.get(m.group(1))
+        comp2 = COMPLEMENTS.get(m.group(2))
+        if comp1 > comp2:
+            # It seems there is a convention to put them in alphabetic order
+            comp1, comp2 = comp2, comp1
+        return f"({comp1};{comp2})"
+
+    def _chooseVariation(self, our_snp, variations, stbl_orient: str, debug_rsid: str) -> Optional[int]:
         for i, variation in enumerate(variations):
-            if our_snp == variation[0] and stbl_orient == "plus":  # TODO: Support negative orientation.
+            if stbl_orient == "plus":
+                our_oriented_snp = our_snp
+            elif stbl_orient == "minus":
+                # TODO: Stabilized orientation doesn't always works (e.g., rs10993994 for GRCh38). Probably we should
+                #  look at reference genome used in SNPedia and in the analyzed genome.
+                our_oriented_snp = self._complement(our_snp)
+            else:
+                return None
+
+            if our_oriented_snp == variation[0]:
                 return i
+
+        if len(variations) == 3:  # Usually contains all variants.
+            logging.warning(f"Couldn't find {our_snp} in {variations} ({debug_rsid}, {stbl_orient})")
         return None
 
     def createList(self):
@@ -142,6 +179,7 @@ class SNPCrawl:
                     our_snp=self.snpdict[rsid.lower()],
                     variations=variations_data,
                     stbl_orient=stbl_orient,
+                    debug_rsid=rsid.lower(),
                 )
             else:
                 variation_idx = None
