@@ -237,7 +237,7 @@ SEED_RSIDS = [
 def find_relevant_rsids(
         personal: PersonalData,
         crawl: SNPCrawl,
-        count: int = 100,
+        count: int,
 ) -> Sequence[str]:
     snps_of_interest = [snp for snp in personal.snps if personal.hasGenotype(snp)]
     snps_to_grab = [snp for snp in snps_of_interest if snp not in crawl.rsidDict]
@@ -260,6 +260,7 @@ def find_relevant_rsids(
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--filepath', help='Filepath for 23andMe data to be used for import', required=False)
+    parser.add_argument('-n', '--count', help='Number of SNPs to download', type=int, default=100)
     args = parser.parse_args()
 
     if os.path.exists("SNPedia"):
@@ -275,7 +276,7 @@ def main():
     if args.filepath:
         rsids_on_snpedia = Approved()
         personal = PersonalData(args.filepath, rsids_on_snpedia)
-        rsids = find_relevant_rsids(personal, dfCrawl)
+        rsids = find_relevant_rsids(personal, dfCrawl, count=args.count)
     else:
         rsids = SEED_RSIDS
 
