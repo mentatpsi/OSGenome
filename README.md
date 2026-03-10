@@ -94,8 +94,9 @@ This sets us the Flask server
 ## Access the Local Server
 Access http://127.0.0.1:5000 (the ip address also known as localhost, it's all hosted on your local machine) to look at your Genome
 
-## arv support
-There exists a library arv ([GitHub: cslarsen/arv - A fast 23andMe DNA parser and inferrer for Python](https://github.com/cslarsen/arv)) that allows for rule based matching of health and trait attributes using a hash table of the raw data of 23andMe. It is possible to alter the rsidDict.json to allow for automatically populating the rule matching conditions. I will be designing this functionality in a python script that will be able to be used to import the JSON as a dictionary that can be called within the rule matching. Please keep in mind its respective disclaimers before using the service. 
+## Expanded Ecosystem
+[GitHub: mentatpsi/NutritionalGenomics - A Flask App designed to give you a brief overview of nutritional genomics](https://github.com/mentatpsi/NutritionalGenomics) 
+Nutritional Genomics is an Open Source tool designed to give you insight into your 23AndMe's genomics associated with nutrition. It uses the snpDict.json found in this repo that's constructed with OSGenome to map to a set of 18 known SNPs. It features everything from Saturated Fat guidelines, Omega 3s, Vitamin D levels, Folate Metabolism, and BMI while also providing the general strength of the research. SNPedia links are also provided on each SNP. 
 
 ## Example
 ![Example of Kendo Grid](https://github.com/mentatpsi/OSGenome/blob/master/images/OSGenome6.PNG)
