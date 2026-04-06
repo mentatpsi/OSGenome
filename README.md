@@ -4,6 +4,17 @@ An Open Source Web Application for Genetic Data (SNPs) using 23AndMe and Data Cr
 ## New Version
 [GitHub: mentatpsi/OSGenome2 - An Open Source Web Application for Genetic Data (SNPs) using 23AndMe and Data Crawling Technologies](https://github.com/mentatpsi/OSGenome2)
 
+🚀 What's New in OSGenome v2
+OSGenome has been completely re-architected from the ground up for massive performance gains and stricter clinical accuracy.
+
+- Instantaneous Rendering (DataTables Migration): We migrated the frontend from Kendo Grid to DataTables with deferred client-side rendering. By passing raw JSON directly to the frontend rather than relying on server-side loops, dashboard load times for 25,000+ row datasets have been reduced from over a minute to mere milliseconds.
+
+- Zero Data-Loss Parsing: The core GenomeImporter python engine has been rewritten to natively support edge-case mutations. It now more accurately parses heterozygous indels (Insertions/Deletions) and single-allele (hemizygous) traits from X/Y/mtDNA, preventing the silent data-discarding common in standard parsers.
+
+- Memory-Efficient Processing: The backend now utilizes line-by-line data streaming to process massive multi-megabyte raw DNA text files with near-zero RAM overhead.
+
+- Enhanced Data Explorer: Introduced instant UI toggles to filter out "Common in ClinVar" noise and empty traits
+
 
 ## Description
 OS Genome is an open source web application that allows users to gather the information they need to make sense of their own genome without needing to rely on outside services with unknown privacy policies. OS Genome's goal is to crawl various sources and give meaning to an individual's genome. It creates a Responsive Grid of the user's specific genome. This allows for everything from filtering to excel exporting. All of which using Flask, Kendo, and Python programming.
