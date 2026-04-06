@@ -5,6 +5,7 @@ An Open Source Web Application for Genetic Data (SNPs) using 23AndMe and Data Cr
 [GitHub: mentatpsi/OSGenome2 - An Open Source Web Application for Genetic Data (SNPs) using 23AndMe and Data Crawling Technologies](https://github.com/mentatpsi/OSGenome2)
 
 🚀 What's New in OSGenome v2
+
 OSGenome has been completely re-architected from the ground up for massive performance gains and stricter clinical accuracy.
 
 - Instantaneous Rendering (DataTables Migration): We migrated the frontend from Kendo Grid to DataTables with deferred client-side rendering. By passing raw JSON directly to the frontend rather than relying on server-side loops, dashboard load times for 25,000+ row datasets have been reduced from over a minute to mere milliseconds.
