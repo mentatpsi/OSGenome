@@ -14,7 +14,7 @@ OSGenome has been completely re-architected from the ground up for massive perfo
 
 - Memory-Efficient Processing: The backend now utilizes line-by-line data streaming to process massive multi-megabyte raw DNA text files with near-zero RAM overhead.
 
-- Enhanced Data Explorer: Introduced instant UI toggles to filter out "Common in ClinVar" noise and empty traits
+- Enhanced Data Explorer: Introduced instant UI toggles to filter out "Common in ClinVar" noise and empty traits as well as a new AI generated SNP categorization column
 
 
 ## Description
