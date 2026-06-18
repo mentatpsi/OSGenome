@@ -67,7 +67,8 @@
                 var grid1 = $("#grid").data("kendoGrid");
                 oldPageSize = grid1.dataSource.pageSize();
                 grid1.dataSource.pageSize(grid1.dataSource.data().length);
-                grid1.saveAsExcel()
+                grid1.saveAsExcel();
+                grid1.dataSource.pageSize(oldPageSize);
             };
 
             $(window).resize(function () {
@@ -86,19 +87,17 @@
             $(document).ready(function () {
 
                 $("#grid").kendoGrid({
-                    toolbar: [{
-                        name: 'exportExcel1',
-                        template: '#= exportExcel()#',
-                    },
-                    {
-                        name: 'lookupsnp',
-                        template: '#= snplookup()#'
-                    }
+                    toolbar: [
+                        { name: 'excel', text: 'Export to Excel' },
+                        {
+                            name: 'lookupsnp',
+                            template: '#= snplookup()#'
+                        }
                     ],
                     excel: {
-                        fileName: "SNP Report.xlsx",
+                        fileName: "SNP_Report.xlsx",
                         proxyURL: "/excel",
-                        filterable: true
+                        forceProxy: true
                     },
 
                     dataSource: {

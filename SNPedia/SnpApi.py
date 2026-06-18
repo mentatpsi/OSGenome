@@ -28,9 +28,12 @@ def create_file():
     bytesIO.write(filecontents)
     bytesIO.seek(0)
 
-    return send_file(bytesIO,
-                     attachment_filename=filename,
-                     as_attachment=True)
+    return send_file(
+        bytesIO,
+        download_name=filename,
+        as_attachment=True,
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
 
 
 @app.route('/images/<path:path>')
